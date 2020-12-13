@@ -24,7 +24,7 @@ public class AuthentificationController {
     private final AuthenticationManager authenticationManager;
 
     @PostMapping(path = "/login", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         String username = loginRequest.getFirstName();
         String password = loginRequest.getPassword();
         UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username, password);

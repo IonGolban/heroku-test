@@ -30,14 +30,15 @@ public class ClientService {
                 .collect(Collectors.toList());
     }
 
-    public void save(ClientDto clientDto) {
-        ClientEntity.builder()
+    public ClientDto save(ClientDto clientDto) {
+        ClientEntity entity = ClientEntity.builder()
                 .firstName(clientDto.getFirstName().toUpperCase())
                 .lastName(clientDto.getLastName().toUpperCase())
                 .gender(clientDto.getGender())
                 .email(clientDto.getEmail())
                 .telNumber(clientDto.getTelNumber())
                 .build();
+        return ClientConverter.toClientDto(clientRepository.save(entity));
     }
 
     public boolean deleteById(String id) {
@@ -47,8 +48,8 @@ public class ClientService {
     }
 
     public ClientDto getUser(String firstName) {
-        Optional<ClientEntity> user = clientRepository.findByFirstName(firstName);
-        return user.map(ClientConverter::toClientDto).orElseThrow(ClientNotFoundException::new);
+        Optional<ClientEntity> client = clientRepository.findByFirstName(firstName);
+        return client.map(ClientConverter::toClientDto).orElseThrow(ClientNotFoundException::new);
     }
 
 

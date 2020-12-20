@@ -1,7 +1,6 @@
 package com.example.homeworkproject.controller;
 
 import com.example.homeworkproject.controller.response.DeletedResponse;
-import com.example.homeworkproject.repo.entity.ClientEntity;
 import com.example.homeworkproject.service.ClientService;
 import com.example.homeworkproject.service.dto.ClientDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,16 +29,21 @@ public class ClientController {
     //      return new ResponseEntity<>(new DeletedResponse(isDeleted), HttpStatus.OK);
     //  }
     @DeleteMapping("client/delete/{id}")
-    public @ResponseBody
-    ResponseEntity<DeletedResponse> delete(@PathVariable String id) {
+    public ResponseEntity<DeletedResponse> delete(@PathVariable String id) {
         boolean isDeleted = clientService.deleteById(id);
         return new ResponseEntity<>(new DeletedResponse(isDeleted), HttpStatus.OK);
+    }
+
+    @PutMapping(path = "clients", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<ClientDto> add(@RequestBody ClientDto client) {
+        ClientDto clientDto = clientService.save(client);
+        return new ResponseEntity<>(clientDto, HttpStatus.OK);
     }
 
     @GetMapping(path = "/clients/{firstName}", produces = "application/json")
     public ResponseEntity<List<String>> getUser(@PathVariable String firstName) {
         clientService.getUser(firstName);
-        return new ResponseEntity<>(new ArrayList<>(),HttpStatus.OK);
+        return new ResponseEntity<>(new ArrayList<>(), HttpStatus.OK);
     }
 
 }

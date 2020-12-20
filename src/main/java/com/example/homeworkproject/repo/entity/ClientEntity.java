@@ -1,8 +1,10 @@
 package com.example.homeworkproject.repo.entity;
 
-import com.example.homeworkproject.service.dto.DoctorDto;
 import com.example.homeworkproject.service.type.GenderType;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -13,10 +15,11 @@ import javax.persistence.*;
 @Entity
 @Table(name = "T_CLIENT")
 public class ClientEntity {
+
     @Id
     @Column(name = "id")
-    //@SequenceGenerator()
-    //@GeneratedValue
+    @SequenceGenerator(name = "clientSeq", sequenceName = "t_client_id_seq", allocationSize = 1)
+    @GeneratedValue(generator = "clientSeq", strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(name = "password")

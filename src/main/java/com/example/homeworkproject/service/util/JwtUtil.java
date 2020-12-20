@@ -10,8 +10,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+
 @Component
 public class JwtUtil {
+
     private String SECRET_KEY = "z12x332cedawsqyhqweiuyqfv";
 
     public String generateToken(UserDetails userDetails) {
@@ -29,6 +31,7 @@ public class JwtUtil {
                 .setExpiration(expiration)
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }
+
     public boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));

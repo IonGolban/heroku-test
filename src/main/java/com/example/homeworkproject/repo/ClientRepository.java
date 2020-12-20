@@ -9,6 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 @EnableJpaRepositories
 public interface ClientRepository extends CrudRepository<ClientEntity,Long> {
+
     Optional<ClientEntity> findByFirstName(String firstName);
 
 }

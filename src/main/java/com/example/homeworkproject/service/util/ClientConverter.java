@@ -3,8 +3,9 @@ package com.example.homeworkproject.service.util;
 import com.example.homeworkproject.repo.entity.ClientEntity;
 import com.example.homeworkproject.service.dto.ClientDto;
 
+import java.util.Optional;
+
 import static com.example.homeworkproject.service.util.DiseaseConverter.toDiseaseDto;
-import static com.example.homeworkproject.service.util.DoctorConverter.toDoctorDto;
 
 
 public class ClientConverter {
@@ -16,8 +17,12 @@ public class ClientConverter {
                 .gender(entity.getGender())
                 .email(entity.getEmail())
                 .telNumber(entity.getTelNumber())
-                .doctor(toDoctorDto(entity.getDoctor()))
-                .disease(toDiseaseDto(entity.getDisease()))
+                .doctor(Optional.ofNullable(entity.getDoctor())
+                        .map(DoctorConverter::toDoctorDto)
+                        .orElse(null))
+                .disease(Optional.ofNullable(entity.getDisease())
+                        .map(DiseaseConverter::toDiseaseDto)
+                        .orElse(null))
                 .build();
     }
 

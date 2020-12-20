@@ -13,11 +13,13 @@ import java.util.List;
 @Builder
 @ToString
 public class ClientDetailsDto {
-    List<ClientAuthorityDto> authorities ;
+    List<ClientAuthorityDto> authorities;
 
     private String password;
 
     private String firstName;
+
+    private String lastName;
 
     private boolean accountNonExpired;
 
